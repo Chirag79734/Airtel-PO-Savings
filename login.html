@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Fun Login Page</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 24px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: bold;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box; /* Makes sure padding doesn't affect width */
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #message {
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Login to My Site</h2>
+    <form id="login-form">
+        <div class="input-group">
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" placeholder="Enter your email" required>
+        </div>
+        <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        </div>
+        <button type="submit">Log In</button>
+    </form>
+    <div id="message"></div>
+</div>
+
+<script>
+    // This is our "pretend" Google Sheet data.
+    // In the future, you could learn how to get this from a real sheet!
+    const users = [
+        { email: 'user1@example.com', password: 'password123' },
+        { email: 'sarah@test.com', password: 'secretpassword' },
+        { email: 'guest@site.com', password: 'guest' }
+    ];
+
+    // Get the form and the message area from our page
+    const loginForm = document.getElementById('login-form');
+    const messageDiv = document.getElementById('message');
+
+    // This is what happens when someone clicks the "Log In" button
+    loginForm.addEventListener('submit', function(event) {
+        // Stop the page from refreshing when the button is clicked
+        event.preventDefault();
+
+        // Get the email and password the user typed in
+        const emailInput = document.getElementById('email').value;
+        const passwordInput = document.getElementById('password').value;
+
+        let loggedIn = false;
+
+        // We'll check every user in our list
+        for (let i = 0; i < users.length; i++) {
+            // If the email and password match, we're in!
+            if (users[i].email === emailInput && users[i].password === passwordInput) {
+                loggedIn = true;
+                break; // Stop checking once we find a match
+            }
+        }
+
+        // Show a message to the user
+        if (loggedIn) {
+            messageDiv.textContent = 'Login successful! Welcome!';
+            messageDiv.style.color = '#4CAF50';
+        } else {
+            messageDiv.textContent = 'Login failed. Please check your email and password.';
+            messageDiv.style.color = '#f44336';
+        }
+    });
+</script>
+
+</body>
+</html>
